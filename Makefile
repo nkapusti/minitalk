@@ -1,34 +1,30 @@
-NAME_SERVER =	server
-NAME_CLIENT =	client
-SRC_SERVER =	server.c
-SRC_CLIENT =	client.c
-lib = libft
-libft	= libft.a
-
-CC = cc
+SERVER = server
+SERVER_SRC = server.c
+CLIENT = client
+CLIENT_SRC = client.c
+PRINTF = ft_printf
 CFLAGS = -Wall -Wextra -Werror
+RM = rm -f
 
-all: $(libft) $(NAME_SERVER) $(NAME_CLIENT)
+all: library $(SERVER) $(CLIENT)
 
-$(libft):
-	@make -C $(lib)
+library:
+	@make -C $(PRINTF)
 
-$(NAME_SERVER):
-	$(CC) $(CFLAGS) $(SRC_SERVER) libft/libft.a -o $(NAME_SERVER)
-	
-$(NAME_CLIENT):
-	$(CC) $(CFLAGS) $(SRC_CLIENT) libft/libft.a -o $(NAME_CLIENT)
+$(SERVER):
+	cc $(SERVER_SRC) $(CFLAGS) -L $(PRINTF) -o $(SERVER) -lftprintf
 
-%.o: %.c
-	$(CC) $(CFLAGS)  -c $< -o $@
+$(CLIENT):
+	cc $(CLIENT_SRC) $(CFLAGS) -L $(PRINTF) -o $(CLIENT) -lftprintf
 
 clean:
-	rm $(NAME_SERVER) $(NAME_CLIENT)
-	@make clean -C $(lib)
+	$(RM) $(CLIENT) $(SERVER)
+	@make clean -C $(PRINTF)
 
 fclean: clean
-	@make fclean -C $(lib)
-	
-re: fclean all
+	$(RM) $(CLIENT) $(SERVER)
+	@make fclean -C $(PRINTF)
+
+re:	fclean all
 
 .PHONY: all clean fclean re
