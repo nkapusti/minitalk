@@ -61,12 +61,9 @@ void	message(int signum)
 		signal(SIGUSR1, message);
 	else if (signum == SIGUSR2)
 	{
-		//write(1, "Message reseived\n", 17);
 		ft_printf("Message reseived\n");
 		exit(0);
 	}
-	//signal(SIGUSR1, message);
-	//signal(SIGUSR2, message);
 }
 
 int	main(int argc, char **argv)
